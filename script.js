@@ -38,19 +38,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            lightbox.style.display = 'flex';
+            // CSSの表示アニメーション用クラスを追加
+            lightbox.classList.add('active');
         });
     });
 
     if (closeBtn) {
         closeBtn.addEventListener('click', () => {
-            lightbox.style.display = 'none';
+            lightbox.classList.remove('active');
         });
     }
 
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) {
-            lightbox.style.display = 'none';
+            lightbox.classList.remove('active');
         }
     });
 });
