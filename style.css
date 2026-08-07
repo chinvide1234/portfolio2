@@ -475,4 +475,18 @@ body{
         font-size:14px;
     }
 
+    /* SOLD OUT バッジの見た目 */
+.lightbox-content .sold-badge {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 8px 20px;
+    background-color: #777; /* 落ち着いたグレー（黒がよければ #000 に変更OK） */
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-radius: 2px;
+}
+
 }
