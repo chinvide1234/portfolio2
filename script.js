@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxSoldBadge = document.getElementById('lightbox-sold-badge');
     const closeBtn = document.querySelector('.lightbox .close');
 
+    if (!lightbox || !lightboxImg) return;
+
     images.forEach(img => {
         img.addEventListener('click', () => {
             const title = img.getAttribute('data-title') || '';
@@ -18,31 +20,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
             lightboxImg.src = img.src;
             lightboxImg.alt = img.alt;
-            lightboxTitle.textContent = title;
-            lightboxInfo.textContent = `${year} / ${size}`;
+            if (lightboxTitle) lightboxTitle.textContent = title;
+            if (lightboxInfo) lightboxInfo.textContent = `${year} / ${size}`;
 
-            if (isSold) {
-                // 売切作品：SOLD OUT表示、購入ボタンは非表示
-                lightboxSoldBadge.style.display = 'inline-block';
-                lightboxBuyBtn.style.display = 'none';
-            } else if (baseUrl && baseUrl.trim() !== '') {
-                // 販売中作品：SOLD OUT非表示、購入ボタンを表示
-                lightboxSoldBadge.style.display = 'none';
-                lightboxBuyBtn.href = baseUrl;
-                lightboxBuyBtn.style.display = 'inline-block';
-            } else {
-                // 非売品等：どちらも非表示
-                lightboxSoldBadge.style.display = 'none';
-                lightboxBuyBtn.style.display = 'none';
+            // SOLD OUTバッジの制御
+            if (lightboxSoldBadge) {
+                lightboxSoldBadge.style.display = isSold ? 'inline-block' : 'none';
+            }
+
+            // 購入ボタンの制御
+            if (lightboxBuyBtn) {
+                if (!isSold && baseUrl && baseUrl.trim() !== '') {
+                    lightboxBuyBtn.href = baseUrl;
+                    lightboxBuyBtn.style.display = 'inline-block';
+                } else {
+                    lightboxBuyBtn.style.display = 'none';
+                }
             }
 
             lightbox.style.display = 'flex';
         });
     });
 
-    closeBtn.addEventListener('click', () => {
-        lightbox.style.display = 'none';
-    });
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            lightbox.style.display = 'none';
+        });
+    }
 
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) {
