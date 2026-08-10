@@ -1,5 +1,5 @@
 /* ==========================================
-   Base Styles
+   Base Styles & Typography
    ========================================== */
 * {
     margin: 0;
@@ -10,18 +10,15 @@
 body {
     background-color: #0d0d0d;
     color: #ffffff;
-    font-family: 'Noto Sans JP', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans JP", sans-serif;
     line-height: 1.6;
-    /* 英単語の途中での不自然な改行を防止 */
-    word-break: normal;
     overflow-wrap: break-word;
+    -webkit-font-smoothing: antialiased;
 }
 
 a {
     color: #ffffff;
     text-decoration: none;
-    /* 単語が途中で切れないように保持 */
-    white-space: nowrap;
 }
 
 /* ==========================================
@@ -40,16 +37,17 @@ header {
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: 500;
+    font-size: 1.4rem;
+    font-weight: 600;
     letter-spacing: 2px;
-    white-space: nowrap; /* ロゴの途中で改行させない */
+    white-space: nowrap;
 }
 
 nav a {
     margin-left: 20px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #aaa;
+    white-space: nowrap;
     transition: color 0.2s;
 }
 
@@ -90,12 +88,13 @@ nav a:hover {
     font-size: 3rem;
     font-weight: 300;
     letter-spacing: 4px;
-    white-space: nowrap; /* タイトル改行防止 */
+    white-space: nowrap;
 }
 
 .hero p {
     font-size: 1.1rem;
     color: #ccc;
+    letter-spacing: 2px;
 }
 
 /* ==========================================
@@ -103,22 +102,22 @@ nav a:hover {
    ========================================== */
 section {
     padding: 80px 20px;
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
 section h2 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 300;
     margin-bottom: 40px;
     text-align: center;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     border-bottom: 1px solid #222;
-    padding-bottom: 10px;
+    padding-bottom: 12px;
 }
 
 /* ==========================================
-   Gallery Section（サムネイル全体表示修正）
+   Gallery Section
    ========================================== */
 .gallery .grid {
     display: grid;
@@ -129,7 +128,6 @@ section h2 {
 .gallery .grid img {
     width: 100%;
     height: 300px;
-    /* 切り取らずに全体を表示（黒背景になじむ） */
     object-fit: contain;
     background-color: #000;
     cursor: pointer;
@@ -143,58 +141,84 @@ section h2 {
 }
 
 /* ==========================================
-   About / Exhibitions / Contact
+   About
    ========================================== */
 .about p {
     max-width: 650px;
     margin: 0 auto;
     text-align: center;
+    font-size: 0.95rem;
+    line-height: 1.8;
 }
 
+/* ==========================================
+   Exhibitions (スマホの崩れを完全防止)
+   ========================================== */
 .exhibition-item {
     display: flex;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     border-bottom: 1px solid #1a1a1a;
-    padding-bottom: 15px;
+    padding-bottom: 20px;
 }
 
 .exhibition-item .year {
-    width: 80px;
-    font-weight: bold;
+    width: 90px;
+    flex-shrink: 0; /* 年の幅を固定 */
+    font-weight: 600;
+    color: #777;
+    font-size: 0.95rem;
+}
+
+.exhibition-item div {
+    flex-grow: 1;
+}
+
+.exhibition-item h3 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+.exhibition-item p {
+    font-size: 0.85rem;
     color: #888;
 }
 
+/* ==========================================
+   Contact
+   ========================================== */
 .contact p {
     text-align: center;
     margin-bottom: 30px;
+    font-size: 0.9rem;
+    color: #aaa;
 }
 
 .contact-links {
     display: flex;
     justify-content: center;
     gap: 15px;
-    flex-wrap: wrap; /* スマホでボタンが入り切らない場合は綺麗に改行 */
+    flex-wrap: wrap;
 }
 
 .contact-links a {
-    padding: 8px 16px;
-    border: 1px solid #444;
+    padding: 8px 18px;
+    border: 1px solid #333;
     border-radius: 4px;
-    font-size: 0.9rem;
-    white-space: nowrap; /* Instagram等のボタンテキスト改行防止 */
+    font-size: 0.85rem;
+    white-space: nowrap;
     transition: background 0.2s, border-color 0.2s;
 }
 
 .contact-links a:hover {
     background: #222;
-    border-color: #888;
+    border-color: #666;
 }
 
 /* ==========================================
-   Lightbox (Modal) - ポップアップOK版を保持
+   Lightbox (Modal)
    ========================================== */
-
-/* 非表示状態 */
 .lightbox {
     display: none;
     position: fixed;
@@ -207,14 +231,12 @@ section h2 {
     box-sizing: border-box;
 }
 
-/* script.js で .active が付いた時に表示 */
 .lightbox.active {
     display: flex !important;
     justify-content: center;
     align-items: center;
 }
 
-/* 閉じるボタン（右上に固定表示） */
 .lightbox .close {
     position: fixed;
     top: 15px;
@@ -236,7 +258,6 @@ section h2 {
     border: 1px solid #555;
 }
 
-/* モーダルの中身（カード） */
 .lightbox-content {
     position: relative;
     width: 88%;
@@ -252,7 +273,6 @@ section h2 {
     -webkit-overflow-scrolling: touch;
 }
 
-/* 画像サイズ制限 */
 .lightbox-content img {
     width: auto;
     max-width: 100%;
@@ -263,7 +283,6 @@ section h2 {
     border-radius: 4px;
 }
 
-/* タイトルと情報 */
 #lightbox-title {
     font-size: 1.05rem;
     color: #ffffff;
@@ -277,7 +296,6 @@ section h2 {
     margin-bottom: 15px;
 }
 
-/* SOLD OUT バッジ */
 .sold-badge {
     display: inline-block;
     padding: 6px 16px;
@@ -289,7 +307,6 @@ section h2 {
     letter-spacing: 1px;
 }
 
-/* Buy on BASE ボタン */
 .buy-btn {
     display: inline-block;
     padding: 10px 24px;
@@ -309,7 +326,7 @@ section h2 {
 }
 
 /* ==========================================
-   Responsive (Mobile Setup)
+   Responsive (Mobile Settings)
    ========================================== */
 @media (max-width: 600px) {
     header {
@@ -317,15 +334,32 @@ section h2 {
     }
     
     nav a {
-        margin-left: 10px;
+        margin-left: 12px;
         font-size: 0.8rem;
     }
 
     .hero h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
     }
 
     section {
         padding: 50px 15px;
+    }
+
+    /* スマホ画面では展示歴を上下並びに変更してズレを100%防止 */
+    .exhibition-item {
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    .exhibition-item .year {
+        width: auto;
+        margin-bottom: 4px;
+        color: #888;
+        font-size: 0.85rem;
+    }
+
+    .exhibition-item h3 {
+        font-size: 0.95rem;
     }
 }
