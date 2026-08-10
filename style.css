@@ -1,20 +1,207 @@
 /* ==========================================
-   ライトボックス（モーダル）全体の設定
+   Base Styles
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0d0d0d;
+    color: #ffffff;
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 1.6;
+    word-break: break-word;
+}
+
+a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* ==========================================
+   Header & Navigation
+   ========================================== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #0d0d0d;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #222;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+}
+
+nav a {
+    margin-left: 20px;
+    font-size: 0.9rem;
+    color: #aaa;
+    transition: color 0.2s;
+}
+
+nav a:hover {
+    color: #fff;
+}
+
+/* ==========================================
+   Hero Section
+   ========================================== */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    overflow: hidden;
+}
+
+.hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 300;
+    letter-spacing: 4px;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: #ccc;
+}
+
+/* ==========================================
+   Sections General
+   ========================================== */
+section {
+    padding: 80px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+section h2 {
+    font-size: 1.8rem;
+    font-weight: 300;
+    margin-bottom: 40px;
+    text-align: center;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #222;
+    padding-bottom: 10px;
+}
+
+/* ==========================================
+   Gallery Section
+   ========================================== */
+.gallery .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.gallery .grid img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s, opacity 0.3s;
+    border-radius: 4px;
+}
+
+.gallery .grid img:hover {
+    transform: scale(1.02);
+    opacity: 0.85;
+}
+
+/* ==========================================
+   About / Exhibitions / Contact
+   ========================================== */
+.about p {
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.exhibition-item {
+    display: flex;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #1a1a1a;
+    padding-bottom: 15px;
+}
+
+.exhibition-item .year {
+    width: 80px;
+    font-weight: bold;
+    color: #888;
+}
+
+.contact p {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.contact-links a {
+    padding: 8px 16px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.contact-links a:hover {
+    background: #222;
+    border-color: #888;
+}
+
+/* ==========================================
+   Lightbox (Modal) - スマホ表示最適化済み
    ========================================== */
 
-/* 背景オーバーレイ */
+/* 非表示状態 */
 .lightbox {
-    display: none; /* 開くとき JavaScript で flex に切り替え */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.95);
+    background-color: rgba(0, 0, 0, 0.92);
     z-index: 9999;
+    box-sizing: border-box;
+}
+
+/* script.js で .active が付いた時に表示 */
+.lightbox.active {
+    display: flex !important;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
 }
 
 /* 閉じるボタン（右上に固定表示） */
@@ -23,12 +210,12 @@
     top: 15px;
     right: 20px;
     color: #ffffff;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: bold;
     cursor: pointer;
     z-index: 10001;
     line-height: 1;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(40, 40, 40, 0.8);
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -36,51 +223,63 @@
     justify-content: center;
     align-items: center;
     user-select: none;
+    border: 1px solid #555;
 }
 
-/* ポップアップカード（中央の箱） */
+/* モーダルの中身（カード） */
 .lightbox-content {
     position: relative;
-    width: 85%;
+    width: 88%;
     max-width: 420px;
-    max-height: 85vh; /* 画面高の85%以内に収める */
-    background-color: #111111;
-    border: 1px solid #333333;
+    max-height: 85vh; /* 画面高さの85%以内に収める */
+    background-color: #141414;
+    border: 1px solid #333;
     border-radius: 8px;
     padding: 20px 15px;
     box-sizing: border-box;
     text-align: center;
-    overflow-y: auto; /* 万が一溢れても内部スクロール可能 */
+    overflow-y: auto; /* 万が一溢れてもカード内でスクロール可能 */
     -webkit-overflow-scrolling: touch;
 }
 
-/* 画像サイズ制限（画面内に収まるように強制制御） */
+/* 画像サイズ制限（ここが最重要：縦長スマホで画像を小さく抑える） */
 .lightbox-content img {
     width: auto;
     max-width: 100%;
-    max-height: 35vh !important; /* 画像高さを画面の35%以下に制限 */
+    max-height: 38vh !important; /* 画面高の38%以下に自動縮小 */
     object-fit: contain;
     margin: 0 auto 15px auto;
     display: block;
+    border-radius: 4px;
 }
 
-/* 作品タイトル */
+/* タイトルと情報 */
 #lightbox-title {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: #ffffff;
     margin: 10px 0 5px 0;
-    font-weight: bold;
+    font-weight: 400;
 }
 
-/* 作品詳細情報 */
 #lightbox-info {
     font-size: 0.85rem;
-    color: #aaaaaa;
+    color: #888888;
     margin-bottom: 15px;
-    line-height: 1.4;
 }
 
-/* BUY ON BASE ボタン */
+/* SOLD OUT バッジ */
+.sold-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background-color: #444444;
+    color: #888888;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 4px;
+    letter-spacing: 1px;
+}
+
+/* Buy on BASE ボタン */
 .buy-btn {
     display: inline-block;
     padding: 10px 24px;
@@ -96,4 +295,26 @@
 
 .buy-btn:hover {
     background-color: #cccccc;
+}
+
+/* ==========================================
+   Responsive (Mobile Setup)
+   ========================================== */
+@media (max-width: 600px) {
+    header {
+        padding: 15px 20px;
+    }
+    
+    nav a {
+        margin-left: 10px;
+        font-size: 0.8rem;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    section {
+        padding: 50px 15px;
+    }
 }
