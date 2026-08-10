@@ -12,12 +12,16 @@ body {
     color: #ffffff;
     font-family: 'Noto Sans JP', sans-serif;
     line-height: 1.6;
-    word-break: break-word;
+    /* 英単語の途中での不自然な改行を防止 */
+    word-break: normal;
+    overflow-wrap: break-word;
 }
 
 a {
     color: #ffffff;
     text-decoration: none;
+    /* 単語が途中で切れないように保持 */
+    white-space: nowrap;
 }
 
 /* ==========================================
@@ -39,6 +43,7 @@ header {
     font-size: 1.5rem;
     font-weight: 500;
     letter-spacing: 2px;
+    white-space: nowrap; /* ロゴの途中で改行させない */
 }
 
 nav a {
@@ -85,6 +90,7 @@ nav a:hover {
     font-size: 3rem;
     font-weight: 300;
     letter-spacing: 4px;
+    white-space: nowrap; /* タイトル改行防止 */
 }
 
 .hero p {
@@ -112,7 +118,7 @@ section h2 {
 }
 
 /* ==========================================
-   Gallery Section
+   Gallery Section（サムネイル全体表示修正）
    ========================================== */
 .gallery .grid {
     display: grid;
@@ -122,8 +128,10 @@ section h2 {
 
 .gallery .grid img {
     width: 100%;
-    height: 250px;
-    object-fit: cover;
+    height: 300px;
+    /* 切り取らずに全体を表示（黒背景になじむ） */
+    object-fit: contain;
+    background-color: #000;
     cursor: pointer;
     transition: transform 0.3s, opacity 0.3s;
     border-radius: 4px;
@@ -164,7 +172,8 @@ section h2 {
 .contact-links {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
+    flex-wrap: wrap; /* スマホでボタンが入り切らない場合は綺麗に改行 */
 }
 
 .contact-links a {
@@ -172,6 +181,7 @@ section h2 {
     border: 1px solid #444;
     border-radius: 4px;
     font-size: 0.9rem;
+    white-space: nowrap; /* Instagram等のボタンテキスト改行防止 */
     transition: background 0.2s, border-color 0.2s;
 }
 
@@ -181,7 +191,7 @@ section h2 {
 }
 
 /* ==========================================
-   Lightbox (Modal) - スマホ表示最適化済み
+   Lightbox (Modal) - ポップアップOK版を保持
    ========================================== */
 
 /* 非表示状態 */
@@ -231,22 +241,22 @@ section h2 {
     position: relative;
     width: 88%;
     max-width: 420px;
-    max-height: 85vh; /* 画面高さの85%以内に収める */
+    max-height: 85vh;
     background-color: #141414;
     border: 1px solid #333;
     border-radius: 8px;
     padding: 20px 15px;
     box-sizing: border-box;
     text-align: center;
-    overflow-y: auto; /* 万が一溢れてもカード内でスクロール可能 */
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
 
-/* 画像サイズ制限（ここが最重要：縦長スマホで画像を小さく抑える） */
+/* 画像サイズ制限 */
 .lightbox-content img {
     width: auto;
     max-width: 100%;
-    max-height: 38vh !important; /* 画面高の38%以下に自動縮小 */
+    max-height: 38vh !important;
     object-fit: contain;
     margin: 0 auto 15px auto;
     display: block;
@@ -290,6 +300,7 @@ section h2 {
     font-size: 0.85rem;
     border-radius: 4px;
     margin-top: 5px;
+    white-space: nowrap;
     transition: background-color 0.2s;
 }
 
